@@ -64,6 +64,14 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+        'subadmin' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Subadmin::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
