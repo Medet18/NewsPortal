@@ -23,20 +23,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix'=>'admin'], function($router){
     Route::post('/login', [AdminController::class, 'login']);
+    Route::post('/register', [AdminController::class, 'register']);
 });
 
 Route::group(['middleware'=>['jwt.role:admin', 'jwt.auth'], 'prefix' =>'admin'], function($router){
     Route::post('/logout', [AdminController::class, 'logout']);
-    Route::post('/register', [AdminController::class, 'register']);
     Route::get('user_profile', [AdminController::class,'userProfile']);
 });
 
 Route::group(['prefix'=>'subadmin'], function($router){
     Route::post('/login', [SubadminController::class, 'login']);
+    Route::post('/register', [SubadminController::class, 'register']);
+
 });
 
 Route::group(['middleware' => ['jwt.role:subadmin','jwt.auth'], 'prefix'=>'subadmin'], function($router){
     Route::post('/logout', [SubadminController::class, 'logout']);
-    Route::post('/register', [SubadminController::class, 'register']);
     Route::get('/user-profile',[SubadminController::class, ' userProfile']);
 });
