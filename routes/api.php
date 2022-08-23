@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\AdminController;
+// use App\Http\Controllers\SubadminController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+// Route::group(['prefix'=>'admin'], function($router){
+//     Route::post('/login', [AdminController::class, 'login']);
+// });
+
+// Route::group(['middleware'=>['jwt.role:admin', 'jwt.auth'], 'prefix' =>'admin'], function($router){
+//     Route::post('/logout', [AdminController::class, 'logout']);
+//     Route::get('user_profile', [AdminController::class,'userProfile']);
+// });
+
+// Route::group(['prefix'=>'sunadmin'], function($router){
+//     Route::post('/login', [SubadminController::class, 'login']);
+// });
+
+// Route::group(['middleware' => ['jwt.role:subadmin','jwt.auth'], 'prefix'=>'subadmin'], function($router){
+//     Route::post('/logout', [SubadminController::class, 'logout']);
+//     Route::get('/user-profile',[SubadminController::class, ' userProfile']);
+// });
