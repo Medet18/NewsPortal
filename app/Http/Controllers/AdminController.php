@@ -10,7 +10,7 @@ use Validator;
 class AdminController extends Controller
 {
     public function __construct(){
-        \Config::set('auth.defaults.guards', 'admin-api');
+        \Config::set('auth.defaults.guard', 'admin-api');
     }
 
     public function login(Request $request){
@@ -39,7 +39,7 @@ class AdminController extends Controller
     public function register(Request $request){
         $validator = Validator::make($request->all(),[
             'name'=>'required|string|between:2,100',
-            'email'=>'required|email|max:100|unique:admins',
+            'email'=>'required|string|email|max:100|unique:admins',
             'password'=>'required|string|confirmed|min:6',
         ]);
 
@@ -47,14 +47,14 @@ class AdminController extends Controller
             return response()->json($validator->errors()->toJson(), 400);
         }
         
-        $user = Admin::create(array_merge(
+        $admin = Admin::create(array_merge(
             $validator->validated(),
             ['password' => bcrypt($request->password)]
         ));
 
         return response()->json([
             'message' => 'Admin successfully registered!',
-            'user'=>$user
+            'user' => $admin
             ],201);
 
     }

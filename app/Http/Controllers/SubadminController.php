@@ -11,13 +11,13 @@ class SubadminController extends Controller
 {
     //
     public function __construct(){
-        \Config::set('auth.defaults.guards', 'subadmin-api'); 
+        \Config::set('auth.defaults.guard', 'subadmin-api'); 
     }
 
     public function register(Request $request){
         $validator = Validator::make($request->all(),[
             'name'=>'required|string|between:2,100',
-            'email'=>'required|email|max:100|unique:subadmins',
+            'email'=>'required|string|email|max:100|unique:subadmins',
             'password'=>'required|string|confirmed|min:6'
         ]);
 
@@ -43,8 +43,8 @@ class SubadminController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
-        }
+            return response()->json($validator->errors(), 422);
+        }  
 
         if(! $token = auth()->attempt($validator->validated())){
             return response()->json(['error' => 'Unauthorized'], 401);

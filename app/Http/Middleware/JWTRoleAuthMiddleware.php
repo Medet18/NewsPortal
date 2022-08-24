@@ -17,13 +17,13 @@ class JWTRoleAuthMiddleware
     public function handle(Request $request, Closure $next, $role = null)
     {
           try{
-            $token_role = $this->with->parseToken()->getClaim('role');
+            $token_role = $this->auth->parseToken()->getClaim('role');
           }catch(JWTException $e){
             return response()->json(['error'=>'UnAuthenticated'], 401);
           }
 
           if($token_role != $role){
-            return reponse()->json(['error'=>'Authenticated'],401);
+            return reponse()->json(['error'=>'UnAuthenticated'],401);
           }
 
         return $next($request);
