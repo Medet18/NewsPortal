@@ -28,7 +28,7 @@ Route::group(['prefix'=>'admin'], function($router){
 
 Route::group(['middleware'=>['jwt.role:admin', 'jwt.auth'], 'prefix' =>'admin'], function($router){
     Route::post('/logout', [AdminController::class, 'logout']);
-    Route::get('/user-profile', [AdminController::class,'userProfile']);
+    Route::get('/me', [AdminController::class,'userProfile']);
 });
 
 Route::group(['prefix'=>'subadmin'], function($router){
@@ -39,5 +39,5 @@ Route::group(['prefix'=>'subadmin'], function($router){
 
 Route::group(['middleware' => ['jwt.role:subadmin','jwt.auth'], 'prefix'=>'subadmin'], function($router){
     Route::post('/logout', [SubadminController::class, 'logout']);
-    Route::get('/user-profile',[SubadminController::class, ' userProfile']);
+    Route::get('/me', [SubadminController::class, 'userProfile']);
 });
