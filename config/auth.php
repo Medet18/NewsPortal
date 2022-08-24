@@ -50,6 +50,11 @@ return [
             'provider' => 'subadmin',
             'hash' => false,
         ],
+        'user-api'=>[
+            'driver' => 'jwt',
+            'provider' => 'users',
+            'hash' => false,
+        ],
     ],
 
     /*
