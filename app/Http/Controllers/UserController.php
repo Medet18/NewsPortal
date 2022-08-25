@@ -29,14 +29,7 @@ class UserController extends Controller
         return $this->createNewToken($token);
     }
     
-    public function createNewToken($token){
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => strtotime(date('Y-m-d H:i:s', strtotime("+60 min"))),
-            'user' => auth()->user() 
-        ]);
-    }
+    
 
     public function register(Request $request){
         $validator = Validator::make($request->all(),[
@@ -69,5 +62,18 @@ class UserController extends Controller
     public function logout(){
         auth()->logout();
         return response()->json(['message' => 'User successfully logged out!']);
+    }
+    // public function refresh()
+    // {
+    //     return $this->createNewToken(auth()->refresh());
+    // }
+
+    public function createNewToken($token){
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => strtotime(date('Y-m-d H:i:s', strtotime("+60 min"))),
+            'user' => auth()->user() 
+        ]);
     }
 }
