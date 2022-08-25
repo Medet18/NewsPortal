@@ -6,7 +6,7 @@ use App\Models\News;
 use Illuminate\Http\Request;
 use Validator;
 use Carbon\Carbon;
-use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\NewsStoreRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,21 +21,22 @@ class NewsController extends Controller
 
     public function store(NewsStoreRequest $request)
     {
-        try{
+       try{
             $photo = Str::random(32).".".$request->photo_of_news->getClientOriginalExtension();
 
             News::create([
-                'title_of_news' => $request->title,
+                'title_of_news' => $request->title_of_news,
+                'description_of_news' => $request->description_of_news,
                 'photo_of_news' => $photo,
-                'description_of_news' => $request->desc,
-                'date_of_news' => $request->date
+                'date_of_news' => $request->date_of_news
             ]);
 
             Storage::disk('public')->put($photo, file_get_contents($request->photo_of_news));
             return response()->json(['message'=> 'News successfully stored!'], 200);
         
         } catch(\Exception $e){
-            return response()->json(['message'=> 'Something went wrong!'], 500);
+           // return response()->json(['message'=> 'Something went wrong!'], 500);
+           return response()->json(['Exception' => $e], 500);
         }
     }
 
@@ -54,7 +55,7 @@ class NewsController extends Controller
     {
         try{
             $news = News::find($id);
-            $oldnews = News::find($id);
+            //$oldnews = News::find($id);
             if(!$news){
                 // $newnews = $news;
                 // if($oldnews != $newnews){
@@ -67,9 +68,9 @@ class NewsController extends Controller
                 return response()->json(['message' => 'Not Found!'],404);
             }
 
-            $news->title_of_news = $request->title;
-            $news->description_of_news = $request->desc;
-            $news->date_of_news = $request->date;
+            $news->title_of_news = $request->title_of_news;
+            $news->description_of_news = $request->description_of_news;
+            $news->date_of_news = $request->date_of_news;
 
             if($request->photo_of_news){
                 $storage = Storage::disk('public'); //public storage

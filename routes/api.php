@@ -60,5 +60,5 @@ Route::group(['middleware' => ['jwt.role:users', 'jwt.auth'], 'prefix' =>'user']
 Route::get('products', [NewsController::class, 'index']); 
 Route::get('products/{id}', [NewsController::class, 'show']); 
 Route::post('products', [NewsController::class, 'store']); 
-Route::put('products/{id}', [NewsController::class, 'update']);
+Route::post('products/{id}', [NewsController::class, 'update']);
 Route::delete('products/{id}', [NewsController::class, 'destroy']);
