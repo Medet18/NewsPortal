@@ -46,7 +46,7 @@ class UserController extends Controller
         ]);
         
         if($validator->fails()){
-            return response()->json($validator->errors(), 422);
+            return response()->json($validator->errors()->toJson(), 400);
         }
 
         $user = User::create(array_merge(
@@ -57,7 +57,7 @@ class UserController extends Controller
         return response()->json([
             'message' => 'User successfully registered!',
             'user' => $user
-        ]);
+        ], 201);
 
     }
 

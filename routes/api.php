@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SubadminController;
+use App\Http\Controllers\UserController;
+
 
 
 /*
@@ -49,7 +51,7 @@ Route::group(['prefix'=>'user'], function($router){
     Route::post('/register', [UserController::class, 'register']);
     Route::get('/login', [UserController::class, 'login']);
 });
-Route::group(['middleware' => ['jwt.role:user', 'jwt.auth'], 'prefix' =>'user'], function($router){
+Route::group(['middleware' => ['jwt.role:users', 'jwt.auth'], 'prefix' =>'user'], function($router){
     Route::post('/logout', [UserController::class, 'logout']);
     Route::get('/me', [UserController::class, 'userProfile']);
 });
