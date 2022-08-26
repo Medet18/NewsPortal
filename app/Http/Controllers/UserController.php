@@ -68,3 +68,4 @@ class UserController extends Controller
         return response()->json(auth()->user());
     }
 }
+

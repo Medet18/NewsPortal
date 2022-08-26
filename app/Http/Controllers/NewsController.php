@@ -15,10 +15,11 @@ class NewsController extends Controller
  
     public function index()
     {
-        $news = News::all();
+        $news = News::all();    
         return response()->json(['news'=>$news], 200);
+    
+        
     }
-
     public function store(NewsStoreRequest $request)
     {
        try{
@@ -57,14 +58,6 @@ class NewsController extends Controller
             $news = News::find($id);
             //$oldnews = News::find($id);
             if(!$news){
-                // $newnews = $news;
-                // if($oldnews != $newnews){
-                //     $news->update();
-                //     return response()->json(['message' =>'News successfully updated !'], 200);
-                // }
-                // else{
-                //     return response()->json(['message' => 'Nothing to update!'],500);
-                // }
                 return response()->json(['message' => 'Not Found!'],404);
             }
 
@@ -87,13 +80,13 @@ class NewsController extends Controller
                 $storage->put($photo, file_get_contents($request->photo_of_news));
             }
             //news update
-            $news->save();
-
+             $news->save();
             return response()->json(['message' => 'News successfully updated!'], 200);
 
  
         } catch(\Exception $e){
             return response()->json(['message' => 'Something went wrong!'],500);
+            //return response()->json(['message' => $e],500);
         }  
     }
 

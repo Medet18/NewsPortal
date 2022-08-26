@@ -44,11 +44,11 @@ Route::group(['middleware' => ['jwt.role:subadmin','jwt.auth'], 'prefix'=>'subad
     Route::post('/logout', [SubadminController::class, 'logout']);
     Route::get('/me', [SubadminController::class, 'userProfile']);
 
-    // Route::get('/news', [NewsController::class, 'index']); 
-    // Route::get('/news/{id}', [NewsController::class, 'show']); 
-    // Route::post('/news', [NewsController::class, 'store']); 
-    // Route::post('/news/{id}', [NewsController::class, 'update']);
-    // Route::delete('/news/{id}', [NewsController::class, 'destroy']);
+    Route::get('/news', [NewsController::class, 'index']); 
+    Route::get('/news/{id}', [NewsController::class, 'show']); 
+    Route::post('/news', [NewsController::class, 'store']); 
+    Route::post('/news/{id}', [NewsController::class, 'update']);
+    Route::delete('/news/{id}', [NewsController::class, 'destroy']);
 
 });
 
@@ -57,15 +57,11 @@ Route::group(['middleware' => ['jwt.role:subadmin','jwt.auth'], 'prefix'=>'subad
 Route::group(['prefix'=>'user'], function($router){
     Route::post('/register', [UserController::class, 'register']);
     Route::post('/login', [UserController::class, 'login']);
-    //Route::post('/refresh', [UserController::class, 'refresh']);
 });
 Route::group(['middleware' => ['jwt.role:users', 'jwt.auth'], 'prefix' =>'user'], function($router){
     Route::post('/logout', [UserController::class, 'logout']);
     Route::get('/me', [UserController::class, 'userProfile']); 
+    
+    Route::get('/news', [NewsController::class, 'index']); 
+    Route::get('/news/{id}', [NewsController::class, 'show']);
 });
-
-// Route::get('/news', [NewsController::class, 'index']); 
-// Route::get('/news/{id}', [NewsController::class, 'show']); 
-// Route::post('/news', [NewsController::class, 'store']); 
-// Route::post('/news/{id}', [NewsController::class, 'update']);
-// Route::delete('/news/{id}', [NewsController::class, 'destroy']);
