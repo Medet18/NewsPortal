@@ -65,3 +65,13 @@ Route::group(['middleware' => ['jwt.role:users', 'jwt.auth'], 'prefix' =>'user']
     Route::get('/news', [NewsController::class, 'index']); 
     Route::get('/news/{id}', [NewsController::class, 'show']);
 });
+
+
+
+// $post->title = 'new title';
+// $post->tag = 'new tag';
+
+
+// if (!$post->is($post->fresh()) {
+//    $post->update();
+// }

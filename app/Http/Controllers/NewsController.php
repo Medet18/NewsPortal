@@ -56,7 +56,7 @@ class NewsController extends Controller
     {
         try{
             $news = News::find($id);
-            //$oldnews = News::find($id);
+
             if(!$news){
                 return response()->json(['message' => 'Not Found!'],404);
             }
@@ -79,11 +79,11 @@ class NewsController extends Controller
                 //Image save in public folder
                 $storage->put($photo, file_get_contents($request->photo_of_news));
             }
-            //news update
-             $news->save();
+            
+            $news->save();
             return response()->json(['message' => 'News successfully updated!'], 200);
 
- 
+        
         } catch(\Exception $e){
             return response()->json(['message' => 'Something went wrong!'],500);
             //return response()->json(['message' => $e],500);
