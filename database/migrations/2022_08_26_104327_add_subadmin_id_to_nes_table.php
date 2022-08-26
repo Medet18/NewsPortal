@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('subadmins', function (Blueprint $table) {
-            $table->id()->unique();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps(); 
+        Schema::table('news', function (Blueprint $table) {
+            $table->unsignedBigInteger('subadmin_id');
+            $table->foreign('subadmin_id')->references('id')->on('subadmins')->onDelete('cascade');
         });
     }
 
@@ -31,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subadmins');
+        Schema::table('news', function (Blueprint $table) {
+            $table->dropColumn('subadmin_id');
+        });
     }
 };
