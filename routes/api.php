@@ -43,6 +43,13 @@ Route::group(['prefix'=>'subadmin'], function($router){
 Route::group(['middleware' => ['jwt.role:subadmin','jwt.auth'], 'prefix'=>'subadmin'], function($router){
     Route::post('/logout', [SubadminController::class, 'logout']);
     Route::get('/me', [SubadminController::class, 'userProfile']);
+
+    // Route::get('/news', [NewsController::class, 'index']); 
+    // Route::get('/news/{id}', [NewsController::class, 'show']); 
+    // Route::post('/news', [NewsController::class, 'store']); 
+    // Route::post('/news/{id}', [NewsController::class, 'update']);
+    // Route::delete('/news/{id}', [NewsController::class, 'destroy']);
+
 });
 
 
@@ -54,11 +61,11 @@ Route::group(['prefix'=>'user'], function($router){
 });
 Route::group(['middleware' => ['jwt.role:users', 'jwt.auth'], 'prefix' =>'user'], function($router){
     Route::post('/logout', [UserController::class, 'logout']);
-    Route::get('/me', [UserController::class, 'userProfile']);
+    Route::get('/me', [UserController::class, 'userProfile']); 
 });
 
-Route::get('products', [NewsController::class, 'index']); 
-Route::get('products/{id}', [NewsController::class, 'show']); 
-Route::post('products', [NewsController::class, 'store']); 
-Route::put('products/{id}', [NewsController::class, 'update']);
-Route::delete('products/{id}', [NewsController::class, 'destroy']);
+// Route::get('/news', [NewsController::class, 'index']); 
+// Route::get('/news/{id}', [NewsController::class, 'show']); 
+// Route::post('/news', [NewsController::class, 'store']); 
+// Route::post('/news/{id}', [NewsController::class, 'update']);
+// Route::delete('/news/{id}', [NewsController::class, 'destroy']);

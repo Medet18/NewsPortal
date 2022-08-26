@@ -42,7 +42,6 @@ return [
         ],
         'user-api'=> [
             'driver' => 'jwt',
-            //'provider' => 'ordinary_user',
             'provider' => 'users',
             'hash' => false,
         ],
