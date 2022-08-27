@@ -26,6 +26,7 @@ class NewsStoreRequest extends FormRequest
     {
         if(request()->isMethod('post')){
             return [
+                //'subadmin_id' => 'required|bigInteger',
                 'title_of_news' => 'required|string|max:255',
                 'description_of_news' => 'required|string',
                 'photo_of_news' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -34,6 +35,7 @@ class NewsStoreRequest extends FormRequest
         }
         else{
             return [
+               // 'subadmin_id' => 'required|bigInteger',
                 'title_of_news' => 'required|string|max:255',
                 'description_of_news' => 'required|string',
                 'photo_of_news' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -44,6 +46,7 @@ class NewsStoreRequest extends FormRequest
     public function messages(){
         if(request()->isMethod('post')){
             return [
+                //'subadmin_id' => 'required|bigInteger',
                 'title_of_news.required' => 'The title of the news is required!!!',
                 'description_of_news.required' => 'The description of the news is required!!!',
                 'photo_of_news.required' => 'The photo is required!!!',

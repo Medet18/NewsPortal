@@ -44,7 +44,7 @@ Route::group(['middleware' => ['jwt.role:subadmin','jwt.auth'], 'prefix'=>'subad
     Route::post('/logout', [SubadminController::class, 'logout']);
     Route::get('/me', [SubadminController::class, 'userProfile']);
 
-    Route::get('/news', [NewsController::class, 'index']); 
+    Route::get('/news', [NewsController::class, 'index_subadmin']); 
     Route::get('/news/{id}', [NewsController::class, 'show']); 
     Route::post('/news', [NewsController::class, 'store']); 
     Route::put('/news/{id}', [NewsController::class, 'update']);
@@ -62,7 +62,7 @@ Route::group(['middleware' => ['jwt.role:users', 'jwt.auth'], 'prefix' =>'user']
     Route::post('/logout', [UserController::class, 'logout']);
     Route::get('/me', [UserController::class, 'userProfile']); 
     
-    Route::get('/news', [NewsController::class, 'index']); 
+    Route::get('/news', [NewsController::class, 'index_user']); 
     Route::get('/news/{id}', [NewsController::class, 'show']);
 });
 
@@ -75,3 +75,10 @@ Route::group(['middleware' => ['jwt.role:users', 'jwt.auth'], 'prefix' =>'user']
 // if (!$post->is($post->fresh()) {
 //    $post->update();
 // }
+
+//$products = Product::where('user_id',2)->latest()->paginate(20);
+//its work by ```` $products = Product::where('user_id',auth()->user()->id)->latest()->paginate(20);
+//Try Product::where('user_id', auth()->id()).
+
+
+

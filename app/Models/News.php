@@ -14,5 +14,6 @@ class News extends Model
         'description_of_news',
         'photo_of_news',
         'date_of_news',
+        'subadmin_id',
     ];
 }
