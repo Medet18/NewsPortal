@@ -22,17 +22,13 @@ Route::group(['middleware'=>['jwt.role:admin', 'jwt.auth'], 'prefix' =>'admin'],
     Route::group(['prefix'=>'edit/subadmins'], function($router){
         Route::get('/',     [SunadminUserController::class, 'index_subadmins'])->name('index_subadmins');
         Route::get('/{id}', [SunadminUserController::class, 'show_subadmin'])->name('show_subadmin');
-        Route::post('/',    [SunadminUserController::class, 'store_subadmin'])->name('store_subadmin');
-        Route::put('/',     [SunadminUserController::class, 'update_subadmin'])->name('update_subadmin');
-        Route::delete('/',  [SunadminUserController::class, 'destroy_subadmin'])->name('destroy_subadmin');
+        Route::delete('/{id}',  [SunadminUserController::class, 'destroy_subadmin'])->name('destroy_subadmin');
     });
 
     //edit users
     Route::group(['prefix'=>'edit/users'], function($router){
         Route::get('/',     [SunadminUserController::class, 'index_users'])->name('index_users');
         Route::get('/{id}', [SunadminUserController::class, 'show_user'])->name('show_user');
-        Route::post('/',    [SunadminUserController::class, 'store_user'])->name('store_user');
-        Route::put('/',     [SunadminUserController::class, 'update_user'])->name('update_user');
         Route::delete('/{id}',  [SunadminUserController::class, 'destroy_user'])->name('destroy_user');
     });
 });

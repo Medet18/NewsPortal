@@ -14,12 +14,13 @@ use Validator;
 class SunadminUserController extends Controller
 {
     public function __construct(){
-        \Config::set('auth.defaults.guard', 'admin_api');
+        \Config::set('auth.defaults.guard', 'admin-api');
     }
 
+//for sunadmins
     public function index_subadmins()
     {
-        $sadmins = Subadmins::all();
+        $sadmins = Subadmin::all();
         return response()->json(['subadmins' => $sadmins],200);
     }
     
@@ -27,57 +28,10 @@ class SunadminUserController extends Controller
     {
         $sadmin = Subadmin::find($id);
         if(! $sadmin){
-            return response()->json(['message' => 'No such subadmin'],404);
+            return response()->json(['message' => 'No such subadmin!'],404);
         }
 
         return response()->json(['subadmin' => $sadmin],200);
-    }
-
-    public function store_subadmin(Request $req)
-    {
-        $validator = Validator::make($req->all(),[
-            'name'=>'required|string|between:2,100',
-            'email'=>'required|string|email|max:100|unique:subadmins',
-            'password'=>'required|string|confirmed|min:6',
-            'role_type'=>'required|string|min:8',
-        ]);
-
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
-        }
-        
-        $sadmin = Subadmin::create(array_merge(
-            $validator->validated(),
-            ['password' => bcrypt($req->password)]
-        ));
-
-        return response()->json([
-            'message' => 'Subadmin successfully stored!',
-            'user' => $sadmin
-            ],201);
-    }
-
-    public function update_subadmin(Request $req, $id){
-        $req->validate([
-            'name'=>'required|string|between:2,100',
-            'email' => 'required|string|email|max:100|unique:subadmins',
-            'password' =>'required|string|confirmed|min:6',
-            'role_type'=>'required|string|min:8',
-
-        ]);
-        
-        $sadmin = Subadmin::find($id);
-        if($sadmin){
-            $sadmin->name = $req->name;
-            $sadmin->email = $req->email;
-            $sadmin->password = $req->password;
-            $sadmin->password_confirmation = $req->password_confirmation;
-            $sadmin->role_type = $req->role_type;
-            $sadmin->update();
-        }
-        else{
-            return response()->json(['message' => 'No such subadmin!'],404);
-        }
     }
 
     public function destroy_subadmin($id){
@@ -91,4 +45,32 @@ class SunadminUserController extends Controller
         }
     }
 
+//for users
+    public function index_users()
+    {
+        $users = User::all();
+        return response()->json(['Users' => $users],200);
+    }
+
+    public function show_user($id)
+    {
+        $user = User::find($id);
+        if(! $user){
+            return response()->json(['message' => 'No such user!'],404);
+        }
+
+        return response()->json(['User' => $user],200);
+    }
+
+    public function destroy_user($id)
+    {
+        $user = User::find($id);
+        if(! $user ){
+            return response()->json(['message' => 'No such user!'],404);
+        }
+        else{
+            $user->delete();
+            return response()->json(['message' =>'User successfully deleted!'],200);
+        }
+    }
 }
