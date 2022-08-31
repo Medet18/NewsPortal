@@ -45,7 +45,7 @@ Route::group(['middleware' => ['jwt.role:subadmin','jwt.auth'], 'prefix'=>'subad
     Route::get('/me', [SubadminController::class, 'userProfile']);
 
     Route::get('/news', [NewsController::class, 'index_subadmin']); 
-    Route::get('/news/{id}', [NewsController::class, 'show']); 
+    Route::get('/news/{id}', [NewsController::class, 'show_subadmin']); 
     Route::post('/news', [NewsController::class, 'store']); 
     Route::put('/news/{id}', [NewsController::class, 'update']);
     Route::delete('/news/{id}', [NewsController::class, 'destroy']);
@@ -63,7 +63,7 @@ Route::group(['middleware' => ['jwt.role:users', 'jwt.auth'], 'prefix' =>'user']
     Route::get('/me', [UserController::class, 'userProfile']); 
     
     Route::get('/news', [NewsController::class, 'index_user']); 
-    Route::get('/news/{id}', [NewsController::class, 'show']);
+    Route::get('/news/{id}', [NewsController::class, 'show_user']);
 });
 
 

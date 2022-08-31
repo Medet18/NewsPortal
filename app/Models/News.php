@@ -16,4 +16,9 @@ class News extends Model
         'date_of_news',
         'subadmin_id',
     ];
+
+    protected $casts = [
+        'created_at' => 'datetime:d-M-Y h:i:s a',
+        'updated_at' => 'datetime:d-m-Y h:i:s a',
+    ];
 }

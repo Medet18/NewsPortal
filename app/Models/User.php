@@ -43,6 +43,8 @@ class User extends  Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at' => 'datetime:d-M-Y h:i:s a',
+        'updated_at' => 'datetime:d-m-Y h:i:s a',
     ];
     
     public function getJWTIdentifier()
@@ -54,4 +56,9 @@ class User extends  Authenticatable implements JWTSubject
     {
         return ['role' => 'users'];
     }
+
+        // public function news()
+        // {
+        //     return $this->hasOne(News::class);
+        // }
 }

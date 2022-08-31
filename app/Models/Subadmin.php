@@ -41,6 +41,9 @@ class Subadmin extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at' => 'datetime:d-M-Y h:i:s a',
+        'updated_at' => 'datetime:d-m-Y h:i:s a',
+    
     ];
 
     public function getJWTIdentifier(){
@@ -50,4 +53,8 @@ class Subadmin extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims(){
         return ['role' => 'subadmin'];
     }
+    // public function news()
+    // {
+    //     return $this->hasMany(News::class);
+    // }
 }
