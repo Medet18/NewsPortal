@@ -45,7 +45,7 @@ class NewsController extends Controller
     
     public function index_subadmin()
     {   
-        $new = News::where('subadmin_id',  auth()->user()->id)->get();
+        $new = News::where('subadmin_id',  auth('subadmin-api')->user()->id)->get();
         return response()->json(['news'=>$new],200);
     }
    
@@ -56,7 +56,7 @@ class NewsController extends Controller
 
             $news = new News();
             News::create([
-                'subadmin_id' => auth()->user()->id,
+                'subadmin_id' => auth('subadmin-api')->user()->id,
                 'title_of_news' => $request->title_of_news,
                 'description_of_news' => $request->description_of_news,
                 'photo_of_news' => $photo,
@@ -80,7 +80,7 @@ class NewsController extends Controller
         if(!$news){
             return response()->json(['message'=> 'Not Found!'],404);
         }
-        elseif($news->subadmin_id == auth()->user()->id){
+        elseif($news->subadmin_id == auth('subadmin-api')->user()->id){
              return response()->json(['message'=> $news],200);
         }
         else{
@@ -96,7 +96,7 @@ class NewsController extends Controller
             if(!$news){
                 return response()->json(['message' => 'Not Found!'],404);
             }
-            elseif($news->subadmin_id == auth()->user()->id){
+            elseif($news->subadmin_id == auth('subadmin-api')->user()->id){
                 
                 $news->title_of_news = $request->title_of_news;
                 $news->description_of_news = $request->description_of_news;
@@ -136,7 +136,7 @@ class NewsController extends Controller
         if(!$news){
             return response()->json(['message' => 'Not Found!'], 404);
         }
-        elseif($news->subadmin_id == auth()->user()->id){
+        elseif($news->subadmin_id == auth('subadmin-api')->user()->id){
         
             $storage = Storage::disk('public');
             if($storage->exists($news->photo_of_news))

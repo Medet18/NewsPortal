@@ -45,7 +45,9 @@ return [
     'distinct' => 'The :attribute field has a duplicate value.',
     'doesnt_end_with' => 'The :attribute may not end with one of the following: :values.',
     'doesnt_start_with' => 'The :attribute may not start with one of the following: :values.',
+    //1
     'email' => 'The :attribute must be a valid email address.',
+   
     'ends_with' => 'The :attribute must end with one of the following: :values.',
     'enum' => 'The selected :attribute is invalid.',
     'exists' => 'The selected :attribute is invalid.',
@@ -102,6 +104,8 @@ return [
     'not_in' => 'The selected :attribute is invalid.',
     'not_regex' => 'The :attribute format is invalid.',
     'numeric' => 'The :attribute must be a number.',
+   
+   //2
     'password' => [
         'letters' => 'The :attribute must contain at least one letter.',
         'mixed' => 'The :attribute must contain at least one uppercase and one lowercase letter.',
@@ -138,6 +142,23 @@ return [
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
 
+    // 'custom' => [
+    //     'name' => [
+    //         'required' => 'We need to know u name , please write ur name!',
+    //         'min' => 'U name is so to short, plaese write correct name!',
+    //         'max' => 'U name is so to long, plaese write correct name!',
+    //         'between' => 'The :attribute must be between :min and :max characters.',
+    //     ],
+    //     'email' => [
+    //         'required' => 'We need to know your email address!',
+    //         'max' => 'Your email address is too long!'
+    //     ],
+    //     'password' =>[
+    //         'required' => 'We need to know your password!',
+    //         'min' => 'Your password is too short!'
+    //     ],
+    // ],
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -153,6 +174,18 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'email' => [
+            'required' => 'We need to know your email address!',
+            'max' => 'Your :attribute address is too long!, its must be not greater than :max',
+        ],
+        'name' => [
+            'required' => 'We need to know u name , please write ur name!',
+            'between' => 'The :attribute must be between :min and :max characters.',
+        ],
+        'passwords' => [
+            'required' => 'We need to know your password!',
+            'min' => 'Your :attribute is too short!, its must be not less than :min',
+        ],
     ],
 
     /*
@@ -166,6 +199,10 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'email' => 'email address',
+        'name' => 'username',
+        'password' => 'password',
+    ],
 
 ];

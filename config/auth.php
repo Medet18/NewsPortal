@@ -17,7 +17,6 @@ return [
         'guard' => 'web',
         'passwords' => 'users',
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -56,7 +55,6 @@ return [
             'hash' => false,
         ],
        
-    
     ],
 
     /*
@@ -118,6 +116,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'subadmin' => [
+            'provider' => 'subadmin',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

@@ -6,22 +6,24 @@ use Illuminate\Http\Request;
 use App\Models\Subadmin;
 use Auth;
 use Validator;
+//use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+
 
 class SubadminController extends Controller
 {
     public function __construct(){
-        \Config::set('auth.defaults.guard', 'subadmin-api');
+       \Config::set('auth.defaults.guard', 'subadmin-api');
     }
 
     public function login(Request $request){
         $validator =  Validator::make($request->all(),[
-            'email'=>'required|email',
+            'email'=>'required|email|max:100',
             'password'=>'required|string|min:6',
         ]);
         if($validator->fails()){
             return response()->json($validator->errors(), 422);
         }
-        if(! $token = auth()->attempt($validator->validated())){
+        if(! $token = auth('subadmin-api')->attempt($validator->validated())){
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         return $this->createNewToken($token);
@@ -32,13 +34,13 @@ class SubadminController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => strtotime(date('Y-m-d H:i:s', strtotime("+60 min"))),
-            'user' => auth()->user()
+            'user' => auth('subadmin-api')->user()
         ]);
     }
     
     public function register(Request $request){
         $validator = Validator::make($request->all(),[
-            'name'=>'required|string|between:2,100',
+            'name'=>'required|string|between:1,100',
             'email'=>'required|string|email|max:100|unique:subadmins',
             'password'=>'required|string|confirmed|min:6',
         ]);
@@ -60,11 +62,11 @@ class SubadminController extends Controller
     }
     
     public function logout(){
-        auth()->logout();
+        auth('subadmin-api')->logout();
         return response()->json(['message' => 'Subadmin successfully logged out!']);
     }
 
     public function userProfile(){
-        return response()->json(auth()->user());
+        return response()->json(auth('subadmin-api')->user());
     }
 }

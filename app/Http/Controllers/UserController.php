@@ -11,17 +11,17 @@ class UserController extends Controller
 {
     public function __construct(){
         \Config::set('auth.defaults.guard', 'user-api');
-    }
+   }
 
     public function login(Request $request){
         $validator =  Validator::make($request->all(),[
-            'email'=>'required|email',
+            'email'=>'required|email|max:100',
             'password'=>'required|string|min:6',
         ]);
         if($validator->fails()){
             return response()->json($validator->errors(), 422);
         }
-        if(! $token = auth()->attempt($validator->validated())){
+        if(! $token = auth('user-api')->attempt($validator->validated())){ //user-api
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         return $this->createNewToken($token);
@@ -32,13 +32,13 @@ class UserController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => strtotime(date('Y-m-d H:i:s', strtotime("+60 min"))),
-            'user' => auth()->user()
+            'user' => auth('user-api')->user()
         ]);
     }
     
     public function register(Request $request){
         $validator = Validator::make($request->all(),[
-            'name'=>'required|string|between:2,100',
+            'name'=>'required|string|between:1,100',
             'email'=>'required|string|email|max:100|unique:users',
             'password'=>'required|string|confirmed|min:6',
         ]);
@@ -60,12 +60,12 @@ class UserController extends Controller
     }
     
     public function logout(){
-        auth()->logout();
+        auth('user-api')->logout();
         return response()->json(['message' => 'User successfully logged out!']);
     }
 
     public function userProfile(){
-        return response()->json(auth()->user());
+        return response()->json(auth('user-api')->user());
     }
 }
 
